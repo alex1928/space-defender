@@ -10,6 +10,9 @@ public class Enemy : SpaceShuttle {
 	public Transform target;
 	public float followDistance = 3f;
 
+	public float breakingDistance = 1f;
+	public float breakingSpeed = 2f;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -34,7 +37,21 @@ public class Enemy : SpaceShuttle {
 		Quaternion newRotation = Quaternion.LookRotation(Vector3.forward, positionDiff);
 		transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, agility / 10f * Time.deltaTime);
 
-		float accelerationForce = Mathf.Clamp(positionDiff.magnitude - followDistance, -1f, 1f) * Time.deltaTime;
-		AddAccelerationForce(accelerationForce);
+		float distance = positionDiff.magnitude - followDistance;
+		float speed = GetSpeed();
+		
+		if(distance < breakingDistance && speed >= breakingSpeed) {
+			
+			AddAccelerationForce(-1f * Time.deltaTime);
+		} else {
+
+			float accelerationForce = Mathf.Clamp(distance / followDistance, -1f, 1f);
+			accelerationForce = accelerationForce * Time.deltaTime;
+			AddAccelerationForce(accelerationForce);
+		}
+
+		
+
+		
 	}
 }
