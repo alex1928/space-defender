@@ -9,8 +9,11 @@ public abstract class SpaceShuttle : MonoBehaviour {
 
 	public float acceleration = 100f;
 	public float agility = 50f;
+	public float maxSpeed = 30f;
 
 	public float afterburderMultiplier = 1.4f;
+
+	public float horizontalMovementStabilization = 30f;
 
 	protected bool afterburner = false;
 
@@ -28,6 +31,10 @@ public abstract class SpaceShuttle : MonoBehaviour {
 		
 	}
 
+	protected void FixedUpdate()
+	{
+		StabilizeHorizontalMovement();
+	}
 
 	protected void AddAccelerationForce(float force) {
 
@@ -36,6 +43,14 @@ public abstract class SpaceShuttle : MonoBehaviour {
 			force *= afterburderMultiplier;
 		}
 
+		float currentSpeed = GetSpeed();
+
+		if(force > 0 && currentSpeed > maxSpeed)
+			return;
+
+		if(force < 0 && currentSpeed < -maxSpeed)
+			return;
+
 		rb.AddForce(transform.up * force * acceleration);
 	}
 
@@ -43,4 +58,26 @@ public abstract class SpaceShuttle : MonoBehaviour {
 
 		rb.AddTorque(force * -agility);
 	}
+
+	protected void StabilizeHorizontalMovement() {
+		
+		float horizontalMovement = GetHorizontalMovement();
+		
+		rb.AddForce(transform.right * -horizontalMovement * Time.deltaTime * horizontalMovementStabilization);
+	}
+
+	protected float GetSpeed() {
+
+		Vector3 localVelocity = transform.InverseTransformDirection(rb.velocity);
+
+		return localVelocity.y;	
+	}
+
+	protected float GetHorizontalMovement() {
+
+		Vector3 localVelocity = transform.InverseTransformDirection(rb.velocity);
+
+		return localVelocity.x;
+	}
+
 }

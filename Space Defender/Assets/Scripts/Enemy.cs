@@ -8,6 +8,7 @@ using UnityEngine;
 public class Enemy : SpaceShuttle {
 
 	public Transform target;
+	public float followDistance = 3f;
 
 	// Use this for initialization
 	void Start () {
@@ -27,9 +28,13 @@ public class Enemy : SpaceShuttle {
 
 	void FixedUpdate()
 	{
-		
-		Vector2 positionDiff = target.position - transform.position;
+		base.FixedUpdate();
 
-		Quaternion rotation = Quaternion.LookRotation(positionDiff, Vector3.forward);
+		Vector2 positionDiff = target.position - transform.position;
+		Quaternion newRotation = Quaternion.LookRotation(Vector3.forward, positionDiff);
+		transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, agility / 10f * Time.deltaTime);
+
+		float accelerationForce = Mathf.Clamp(positionDiff.magnitude - followDistance, -1f, 1f) * Time.deltaTime;
+		AddAccelerationForce(accelerationForce);
 	}
 }

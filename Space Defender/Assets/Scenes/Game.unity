@@ -276,6 +276,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cb130fae819844d2a93b695200d21f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  acceleration: 100
+  agility: 20
+  maxSpeed: 4
+  afterburderMultiplier: 1.4
+  horizontalMovementStabilization: 30
+  angularDrag: 1.5
 --- !u!50 &161494210
 Rigidbody2D:
   serializedVersion: 4
@@ -506,6 +512,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7566604d38413411799191d985feaa8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  acceleration: 100
+  agility: 20
+  maxSpeed: 4
+  afterburderMultiplier: 1.4
+  horizontalMovementStabilization: 30
+  target: {fileID: 161494207}
+  followDistance: 5
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
