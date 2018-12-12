@@ -22,6 +22,14 @@ public class Player : SpaceShuttle {
 	void Update () {
 
 		base.Update();
+		
+		if(Input.GetButtonDown("Fire1")) {
+			StartShooting();
+		}
+
+		if(Input.GetButtonUp("Fire1")) {
+			StopShooting();
+		}
 	}
 
 	void FixedUpdate()

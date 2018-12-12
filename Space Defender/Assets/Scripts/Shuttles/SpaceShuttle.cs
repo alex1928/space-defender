@@ -7,18 +7,18 @@ using UnityEngine;
 
 public abstract class SpaceShuttle : MonoBehaviour {
 
-	public float acceleration = 100f;
-	public float agility = 50f;
-	public float maxSpeed = 30f;
-
-	public float afterburderMultiplier = 1.4f;
-
-	public float horizontalMovementStabilization = 30f;
-
+	protected Rigidbody2D rb;
 	protected bool afterburner = false;
 
+	[SerializeField] private float acceleration = 100f;
+	[SerializeField] protected float agility = 50f;
+	[SerializeField] private float maxSpeed = 30f;
+	[SerializeField] protected float afterburderMultiplier = 1.4f;
+	[SerializeField] private float horizontalMovementStabilization = 30f;
 
-	protected Rigidbody2D rb;
+	public List<GameObject> weapons = new List<GameObject>();	
+
+	public int health = 100;
 
 	// Use this for initialization
 	protected void Start () {
@@ -34,6 +34,24 @@ public abstract class SpaceShuttle : MonoBehaviour {
 	protected void FixedUpdate()
 	{
 		StabilizeHorizontalMovement();
+	}
+
+	protected void StartShooting() {
+
+		foreach(GameObject weapon in weapons) {
+
+			Weapon weaponObj = weapon.GetComponent<Weapon>();
+			weaponObj.StartShooting();
+		}
+	}
+
+	protected void StopShooting() {
+
+		foreach(GameObject weapon in weapons) {
+
+			Weapon weaponObj = weapon.GetComponent<Weapon>();
+			weaponObj.StopShooting();
+		}
 	}
 
 	protected void AddAccelerationForce(float force) {
@@ -78,6 +96,38 @@ public abstract class SpaceShuttle : MonoBehaviour {
 		Vector3 localVelocity = transform.InverseTransformDirection(rb.velocity);
 
 		return localVelocity.x;
+	}	
+
+	protected void DealDamage(int damage) {
+
+		health -= damage;
+
+		if(health <= 0) {
+
+			Explode();
+		}
 	}
 
+
+	public void Explode() {
+
+		Destroy(gameObject);
+	}
+
+
+	void OnTriggerEnter2D(Collider2D collider)
+    {
+		GameObject trigger = collider.gameObject;
+
+		if(trigger.tag == "Projectile") {
+
+			Projectile projectile = trigger.GetComponent<Projectile>();
+
+			DealDamage(projectile.damage);
+
+			projectile.Remove();
+			
+		}
+        
+    }
 }

@@ -18,7 +18,7 @@ public class Enemy : SpaceShuttle {
 		
 		base.Start();
 
-		
+		StartShooting();
 	}
 	
 	// Update is called once per frame
