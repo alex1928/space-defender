@@ -22,18 +22,22 @@ public class Weapon : MonoBehaviour {
 		if(reloadTimer > 0)
 			reloadTimer -= Time.deltaTime;
 
-		if(shooting && reloadTimer <= 0) {
+		if(shooting) {
 
 			OneShot();
-			reloadTimer = reloadTime;
 		}
 	}
 
 	public void OneShot() {
 
+		if(reloadTimer > 0)
+			return;
+
 		GameObject projectile = Instantiate(projectilePrefab);
 		projectile.transform.position = transform.position;
 		projectile.transform.rotation = transform.rotation;
+
+		reloadTimer = reloadTime;
 	}
 
 

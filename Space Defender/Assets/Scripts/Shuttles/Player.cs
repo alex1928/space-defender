@@ -30,6 +30,10 @@ public class Player : SpaceShuttle {
 		if(Input.GetButtonUp("Fire1")) {
 			StopShooting();
 		}
+
+		if(Input.GetButtonDown("Fire2")) {
+			FireRocket();
+		}
 	}
 
 	void FixedUpdate()

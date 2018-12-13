@@ -15,14 +15,14 @@ public class Projectile : MonoBehaviour {
 	[SerializeField] protected float lifeTime = 1f;
 
 	// Use this for initialization
-	void Start () {
+	public void Start () {
 		
-		rb = GetComponent<Rigidbody2D>();
-		rb.velocity = transform.up * speed;
+		rb = GetComponent<Rigidbody2D>(); 
+		StartMove();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	public void Update () {
 		
 		lifeTime -= Time.deltaTime;
 
@@ -32,8 +32,12 @@ public class Projectile : MonoBehaviour {
 		}
 	}
 
+	public virtual void StartMove() {
 
-	public void Remove() {
+		rb.velocity = transform.up * speed;
+	}
+
+	public virtual void Remove() {
 
 		Destroy(gameObject);
 	}

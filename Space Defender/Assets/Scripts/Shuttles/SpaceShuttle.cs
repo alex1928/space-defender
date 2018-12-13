@@ -16,7 +16,9 @@ public abstract class SpaceShuttle : MonoBehaviour {
 	[SerializeField] protected float afterburderMultiplier = 1.4f;
 	[SerializeField] private float horizontalMovementStabilization = 30f;
 
-	public List<GameObject> weapons = new List<GameObject>();	
+	public List<GameObject> weapons = new List<GameObject>();
+
+	public GameObject rocketLauncher;
 
 	public int health = 100;
 
@@ -52,6 +54,12 @@ public abstract class SpaceShuttle : MonoBehaviour {
 			Weapon weaponObj = weapon.GetComponent<Weapon>();
 			weaponObj.StopShooting();
 		}
+	}
+
+	protected void FireRocket() {
+
+		Weapon weaponObj = rocketLauncher.GetComponent<Weapon>();
+		weaponObj.OneShot();
 	}
 
 	protected void AddAccelerationForce(float force) {
