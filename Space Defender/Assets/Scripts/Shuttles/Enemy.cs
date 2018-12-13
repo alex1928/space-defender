@@ -4,36 +4,50 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PolygonCollider2D))]
+[RequireComponent(typeof(FieldOfView))]
 
 public class Enemy : SpaceShuttle {
 
-	public Transform target;
+	public GameObject target;
 	public float followDistance = 3f;
 
 	public float breakingDistance = 1f;
 	public float breakingSpeed = 2f;
 
+	public float minDistanceFromObjects = 3.5f;
+
+	private FieldOfView fieldOfView;
+
+	void Awake() {
+
+		fieldOfView = GetComponent<FieldOfView>();
+	}
+
 	// Use this for initialization
-	void Start () {
+	override public void Start () {
 		
 		base.Start();
-
-		StartShooting();
 	}
+
 	
 	// Update is called once per frame
 	void Update () {
 
-		base.Update();
-
-
+		if(fieldOfView.VisibleObjectsContains(target)) {
+			StartShooting();
+		} else {
+			StopShooting();
+		}
 	}
 
-	void FixedUpdate()
+	override public void FixedUpdate()
 	{
 		base.FixedUpdate();
 
-		Vector2 positionDiff = target.position - transform.position;
+		if(target == null)
+			return;
+
+		Vector2 positionDiff = target.transform.position - transform.position;
 		Quaternion newRotation = Quaternion.LookRotation(Vector3.forward, positionDiff);
 		transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, agility / 10f * Time.deltaTime);
 
@@ -42,16 +56,25 @@ public class Enemy : SpaceShuttle {
 		
 		if(distance < breakingDistance && speed >= breakingSpeed) {
 			
-			AddAccelerationForce(-1f * Time.deltaTime);
+			AddAccelerationForce(-1f * Time.deltaTime, transform.up);
+
 		} else {
 
 			float accelerationForce = Mathf.Clamp(distance / followDistance, -1f, 1f);
 			accelerationForce = accelerationForce * Time.deltaTime;
-			AddAccelerationForce(accelerationForce);
+			AddAccelerationForce(accelerationForce, transform.up);
 		}
 
+		if(surroundingSensor.right != 0 && surroundingSensor.right < minDistanceFromObjects) 
+			AddAccelerationForce(-Time.deltaTime / 2f, transform.right);
+		
+		if(surroundingSensor.left != 0 && surroundingSensor.left < minDistanceFromObjects) 
+			AddAccelerationForce(Time.deltaTime / 2f, transform.right);
+		
+		if(surroundingSensor.up != 0 && surroundingSensor.up < minDistanceFromObjects)
+			AddAccelerationForce(-Time.deltaTime / 2f, transform.right);
 		
 
-		
 	}
+	
 }

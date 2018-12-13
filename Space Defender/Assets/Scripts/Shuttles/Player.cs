@@ -11,7 +11,7 @@ public class Player : SpaceShuttle {
 	public float angularDrag = 1.5f;
 
 	// Use this for initialization
-	void Start () {
+	public override void Start () {
 		
 		base.Start();
 
@@ -21,8 +21,6 @@ public class Player : SpaceShuttle {
 	// Update is called once per frame
 	void Update () {
 
-		base.Update();
-		
 		if(Input.GetButtonDown("Fire1")) {
 			StartShooting();
 		}
@@ -36,7 +34,7 @@ public class Player : SpaceShuttle {
 		}
 	}
 
-	void FixedUpdate()
+	public override void FixedUpdate()
 	{
 		base.FixedUpdate();
 		
@@ -44,7 +42,7 @@ public class Player : SpaceShuttle {
 		float directionAxis = Input.GetAxis("Horizontal") * Time.deltaTime;
 		afterburner = Input.GetKey(KeyCode.LeftShift);
 
-		AddAccelerationForce(accelerationAxis);
+		AddAccelerationForce(accelerationAxis, transform.up);
 		AddDirectionForce(directionAxis);
 
 	}

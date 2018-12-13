@@ -15,14 +15,14 @@ public class Projectile : MonoBehaviour {
 	[SerializeField] protected float lifeTime = 1f;
 
 	// Use this for initialization
-	public void Start () {
+	public virtual void Start () {
 		
 		rb = GetComponent<Rigidbody2D>(); 
 		StartMove();
 	}
 	
 	// Update is called once per frame
-	public void Update () {
+	public virtual void Update () {
 		
 		lifeTime -= Time.deltaTime;
 

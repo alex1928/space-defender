@@ -7,13 +7,13 @@ public class Missile : Projectile {
 	public Transform target;
 
 	// Use this for initialization
-	void Start () {
+	override public void Start () {
 		
 		base.Start();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	override public void Update () {
 		
 		base.Update();
 	}	

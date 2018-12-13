@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PolygonCollider2D))]
+[RequireComponent(typeof(SurroundingSensor))]
 
 public abstract class SpaceShuttle : MonoBehaviour {
 
@@ -22,18 +23,17 @@ public abstract class SpaceShuttle : MonoBehaviour {
 
 	public int health = 100;
 
+	protected SurroundingSensor surroundingSensor;
+
+	
 	// Use this for initialization
-	protected void Start () {
+	public virtual void Start () {
 	
 		rb = GetComponent<Rigidbody2D>();
+		surroundingSensor = GetComponent<SurroundingSensor>();
 	}
-	
-	// Update is called once per frame
-	protected void Update () {
-		
-	}
-
-	protected void FixedUpdate()
+	 
+	public virtual void FixedUpdate()
 	{
 		StabilizeHorizontalMovement();
 	}
@@ -62,7 +62,7 @@ public abstract class SpaceShuttle : MonoBehaviour {
 		weaponObj.OneShot();
 	}
 
-	protected void AddAccelerationForce(float force) {
+	protected void AddAccelerationForce(float force, Vector2 direction) {
 
 		if(afterburner) {
 
@@ -77,7 +77,7 @@ public abstract class SpaceShuttle : MonoBehaviour {
 		if(force < 0 && currentSpeed < -maxSpeed)
 			return;
 
-		rb.AddForce(transform.up * force * acceleration);
+		rb.AddForce(direction * force * acceleration);
 	}
 
 	protected void AddDirectionForce(float force) {
