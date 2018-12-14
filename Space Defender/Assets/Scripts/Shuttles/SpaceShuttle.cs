@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PolygonCollider2D))]
+[RequireComponent(typeof(FieldOfView))]
 [RequireComponent(typeof(SurroundingSensor))]
 
 public abstract class SpaceShuttle : MonoBehaviour {
@@ -24,13 +25,20 @@ public abstract class SpaceShuttle : MonoBehaviour {
 	public int health = 100;
 
 	protected SurroundingSensor surroundingSensor;
+	protected FieldOfView fieldOfView;
 
+	
+	void Awake() {
+
+		rb = GetComponent<Rigidbody2D>();
+		surroundingSensor = GetComponent<SurroundingSensor>();
+		fieldOfView = GetComponent<FieldOfView>();
+	}
 	
 	// Use this for initialization
 	public virtual void Start () {
 	
-		rb = GetComponent<Rigidbody2D>();
-		surroundingSensor = GetComponent<SurroundingSensor>();
+		
 	}
 	 
 	public virtual void FixedUpdate()
@@ -58,7 +66,26 @@ public abstract class SpaceShuttle : MonoBehaviour {
 
 	protected void FireRocket() {
 
+		if(fieldOfView.visibleTargets.Count == 0)
+			return;
+
+		GameObject closestTarget = null;
+		float bestDistance = float.PositiveInfinity;
+
+		foreach(GameObject possibleTarget in fieldOfView.visibleTargets) {
+
+			float distance = Vector2.Distance(transform.position, possibleTarget.transform.position);
+
+			if(distance < bestDistance) {
+
+				closestTarget = possibleTarget;
+				bestDistance = distance;
+			}
+		}
+
 		Weapon weaponObj = rocketLauncher.GetComponent<Weapon>();
+		weaponObj.SetTarget(closestTarget);
+		
 		weaponObj.OneShot();
 	}
 

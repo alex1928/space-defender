@@ -35,6 +35,9 @@ public class FieldOfView : MonoBehaviour {
 		foreach(Collider2D targetCollider in targetsInRange) {
 
 			GameObject targetObject = targetCollider.gameObject;
+
+			if(targetObject == gameObject)
+				continue;
 			
 			if(!IsObjectVisible(targetObject))
 				continue;
@@ -56,9 +59,11 @@ public class FieldOfView : MonoBehaviour {
 
 		foreach(RaycastHit2D hit in hits) {
 
-			if(hit.transform.gameObject == gameObject) 
-				continue;
+			if(hit.transform.gameObject == gameObject) {
 
+				continue;
+			}
+				
 			if(hit.transform.gameObject != targetObject) {
 				
 				return false;

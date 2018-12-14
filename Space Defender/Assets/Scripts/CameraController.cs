@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera : MonoBehaviour {
+public class CameraController : MonoBehaviour {
 
 	public Transform target;
 	public float cameraSpeed = 5f;
@@ -13,8 +13,11 @@ public class Camera : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		
+		if(target == null)
+			return;
+
 		Vector3 targetPos = new Vector3(target.position.x, target.position.y, -10f);
 
 		transform.position = Vector3.Lerp(transform.position, targetPos, cameraSpeed * Time.deltaTime);

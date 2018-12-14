@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Missile : Projectile {
 
-	public Transform target;
+	public GameObject target;
 
 	// Use this for initialization
 	override public void Start () {
@@ -20,8 +20,11 @@ public class Missile : Projectile {
 
 	void FixedUpdate()
 	{
-		
-		Vector2 positionDiff = target.position - transform.position;
+
+		if(target == null)
+			return;
+
+		Vector2 positionDiff = target.transform.position - transform.position;
 		Quaternion newRotation = Quaternion.LookRotation(Vector3.forward, positionDiff);
 		transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, 2 * Time.deltaTime);
 		StartMove();

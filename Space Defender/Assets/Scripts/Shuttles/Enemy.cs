@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PolygonCollider2D))]
-[RequireComponent(typeof(FieldOfView))]
+
 
 public class Enemy : SpaceShuttle {
 
@@ -16,12 +16,7 @@ public class Enemy : SpaceShuttle {
 
 	public float minDistanceFromObjects = 3.5f;
 
-	private FieldOfView fieldOfView;
 
-	void Awake() {
-
-		fieldOfView = GetComponent<FieldOfView>();
-	}
 
 	// Use this for initialization
 	override public void Start () {

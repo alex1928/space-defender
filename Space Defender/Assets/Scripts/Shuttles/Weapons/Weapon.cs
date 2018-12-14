@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour {
 	[SerializeField] private float reloadTime = 1f;
 
 	[SerializeField] private GameObject projectilePrefab; 
+	private GameObject target;
 
 
 	// Use this for initialization
@@ -37,7 +38,18 @@ public class Weapon : MonoBehaviour {
 		projectile.transform.position = transform.position;
 		projectile.transform.rotation = transform.rotation;
 
+		Missile missile = projectile.GetComponent<Missile>();
+		if(missile != null) {
+
+			missile.target = target;
+		}
+
 		reloadTimer = reloadTime;
+	}
+
+	public void SetTarget(GameObject target) {
+
+		this.target = target;
 	}
 
 
