@@ -26,7 +26,9 @@ public class Enemy : SpaceShuttle {
 
 	
 	// Update is called once per frame
-	void Update () {
+	public override void Update() {
+
+		base.Update();
 
 		if(fieldOfView.VisibleObjectsContains(target)) {
 			StartShooting();
@@ -52,12 +54,15 @@ public class Enemy : SpaceShuttle {
 		if(distance < breakingDistance && speed >= breakingSpeed) {
 			
 			AddAccelerationForce(-1f * Time.deltaTime, transform.up);
+			SetEnginesEffectPower(0);
 
 		} else {
 
 			float accelerationForce = Mathf.Clamp(distance / followDistance, -1f, 1f);
 			accelerationForce = accelerationForce * Time.deltaTime;
 			AddAccelerationForce(accelerationForce, transform.up);
+			Debug.Log(accelerationForce);
+			SetEnginesEffectPower(1f);
 		}
 
 		if(surroundingSensor.right != 0 && surroundingSensor.right < minDistanceFromObjects) 

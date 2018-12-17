@@ -19,10 +19,14 @@ public abstract class SpaceShuttle : MonoBehaviour {
 	[SerializeField] private float horizontalMovementStabilization = 30f;
 
 	public List<GameObject> weapons = new List<GameObject>();
+	public List<ParticleSystem> engines = new List<ParticleSystem>();
+	public float maxEnginesSpeed = -0.5f;
+	public int maxEnginesEmmision = 15;
 
 	public GameObject rocketLauncher;
 
 	public int health = 100;
+
 
 	protected SurroundingSensor surroundingSensor;
 	protected FieldOfView fieldOfView;
@@ -37,9 +41,14 @@ public abstract class SpaceShuttle : MonoBehaviour {
 	
 	// Use this for initialization
 	public virtual void Start () {
-	
+	}
+
+
+	public virtual void Update() {
+
 		
 	}
+
 	 
 	public virtual void FixedUpdate()
 	{
@@ -147,6 +156,18 @@ public abstract class SpaceShuttle : MonoBehaviour {
 	public void Explode() {
 
 		Destroy(gameObject);
+	}
+
+	
+	protected void SetEnginesEffectPower(float power) {
+
+		foreach(ParticleSystem engine in engines) {
+
+			var emmision = engine.emission;
+			var main = engine.main;
+			emmision.rateOverTime = maxEnginesEmmision * power;
+			main.startSpeed = maxEnginesSpeed * power;
+		}
 	}
 
 

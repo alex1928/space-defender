@@ -31,13 +31,14 @@ public class ObstacleDestroy : MonoBehaviour {
 		if(trigger.tag == "Projectile") {
 
 			Projectile projectile = trigger.GetComponent<Projectile>();
+			Vector2 projectileVelocity = projectile.GetComponent<Rigidbody2D>().velocity;
 			projectile.Remove();
 
-			CrushIntoParts(2);
+			CrushIntoParts(2, projectileVelocity);
 		}
 	}
 
-	public void CrushIntoParts(int partsCount) {
+	public void CrushIntoParts(int partsCount, Vector2 crushVelocity) {
 
 		if(partsCount <= 1)
 			return;
@@ -47,11 +48,13 @@ public class ObstacleDestroy : MonoBehaviour {
 
 		crushCounter++;
 
-		Vector2 newScale = transform.localScale / (float)partsCount;
+		Vector2 newScale = transform.localScale / ((float)partsCount * 0.8f);
 
 		for(int i = 0; i < partsCount; i++) {
 
-			EnviromentManager.instance.SpawnObstacle(transform.position, newScale);
+			GameObject newObstacle = EnviromentManager.instance.SpawnObstacle(transform.position, newScale);
+			Rigidbody2D newObstacleRB = newObstacle.GetComponent<Rigidbody2D>();
+			newObstacleRB.AddForce(crushVelocity / 2f, ForceMode2D.Impulse);
 		}
 		
 		GameObject particle = Instantiate(crushParticlePrefab);
@@ -64,7 +67,8 @@ public class ObstacleDestroy : MonoBehaviour {
 	public void Remove() {
 
 		EnviromentManager.instance.spawnedObstacles.Remove(gameObject);
-		scaleAnimator.ScaleTo(Vector3.zero, 1f);
+		scaleAnimator.ScaleTo(Vector3.zero, 0.3f);
+
 		Destroy(gameObject, 1.1f);
 	}
 }

@@ -20,7 +20,9 @@ public class Player : SpaceShuttle {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	public override void Update() {
+
+		base.Update();
 
 		if(Input.GetButtonDown("Fire1")) {
 			StartShooting();
@@ -38,13 +40,21 @@ public class Player : SpaceShuttle {
 	public override void FixedUpdate()
 	{
 		base.FixedUpdate();
-		
-		float accelerationAxis = Input.GetAxis("Vertical") * Time.deltaTime;
-		float directionAxis = Input.GetAxis("Horizontal") * Time.deltaTime;
+
 		afterburner = Input.GetKey(KeyCode.LeftShift);
+		
+		if(Mathf.Abs(Input.GetAxis("Vertical")) > 0.1) {
 
-		AddAccelerationForce(accelerationAxis, transform.up);
-		AddDirectionForce(directionAxis);
+			float accelerationAxis = Input.GetAxis("Vertical") * Time.deltaTime;
+			AddAccelerationForce(accelerationAxis, transform.up);
+		} 
 
+		SetEnginesEffectPower(Mathf.Clamp01(Input.GetAxis("Vertical")));
+
+		if(Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1) {
+
+			float directionAxis = Input.GetAxis("Horizontal") * Time.deltaTime;
+			AddDirectionForce(directionAxis);
+		}
 	}
 }
