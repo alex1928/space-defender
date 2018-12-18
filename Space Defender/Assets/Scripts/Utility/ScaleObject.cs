@@ -43,7 +43,7 @@ public class ScaleObject : MonoBehaviour {
 
 		if(transform.localScale != targetScale) {
 
-			transform.localScale = Vector3.Lerp(transform.localScale, targetScale, scalingTime * Time.deltaTime);
+			transform.localScale = Vector3.Lerp(transform.localScale, targetScale, scalingTime / Time.deltaTime);
 		}
 	}
 }

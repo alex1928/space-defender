@@ -30,6 +30,7 @@ public abstract class SpaceShuttle : MonoBehaviour {
 	public GameObject rocketLauncher;
 
 	public int health = 100;
+	public int points = 1;
 
 
 	protected SurroundingSensor surroundingSensor;
@@ -157,10 +158,12 @@ public abstract class SpaceShuttle : MonoBehaviour {
 	}
 
 
-	public void Explode() {
+	public virtual void Explode() {
 
 		GameObject explosion = Instantiate(explosionParticle);
 		explosion.transform.position = transform.position;
+
+		EnemyManager.instance.spawnedEnemies.Remove(gameObject);
 
 		Destroy(explosion, 2f);
 		Destroy(gameObject);

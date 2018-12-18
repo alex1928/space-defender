@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1529517227559010}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.572609, y: -1.8890173, z: 0}
+  m_LocalPosition: {x: 12.129337, y: -17.450996, z: 0}
   m_LocalScale: {x: 0.73025, y: 0.73025, z: 0.73025}
   m_Children: []
   m_Father: {fileID: 0}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a2b87e749af45baa7769aff9908c98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crushLimit: 2
+  crushLimit: 4
   crushParticlePrefab: {fileID: 1772190572089424, guid: cfec10baa08ad4e748bfd38b00398d62,
     type: 2}
 --- !u!114 &114862178760988466
@@ -136,8 +136,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetScale: {x: 0, y: 0, z: 0}
-  scalingTime: 1
+  scalingTime: 0.2
   scaleOnStart: 0
+  defaultScale: {x: 0, y: 0, z: 0}
 --- !u!212 &212662690822916384
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -26,13 +26,13 @@ public class EnviromentManager : MonoBehaviour {
 			instance = this;
 		else
 			Destroy(gameObject);
+
+		gameCamera = Camera.main;
 	}
 
 
 	// Use this for initialization
 	void Start () {
-		
-		gameCamera = Camera.main;
 
 		SpawnObstacles();
 	}
@@ -117,10 +117,10 @@ public class EnviromentManager : MonoBehaviour {
 	}
 
 
-	private Vector2 GetRandomPositionInAvaliableSpace() {
+	public Vector2 GetRandomPositionInAvaliableSpace() {
 
-		float randX = Random.Range(0,2) == 0 ? Random.Range(-2f, -0.05f) : Random.Range(1.05f, 3f); 
-		float randY = Random.Range(0,2) == 0 ? Random.Range(-2f, -0.05f) : Random.Range(1.05f, 3f); 
+		float randX = Random.Range(0,2) == 0 ? Random.Range(-1f, -0.05f) : Random.Range(1.05f, 2f); 
+		float randY = Random.Range(0,2) == 0 ? Random.Range(-1f, -0.05f) : Random.Range(1.05f, 2f); 
 
 		Vector2 viewPortRandomPosition = new Vector2(randX, randY);
 		Vector2 position = gameCamera.ViewportToWorldPoint(viewPortRandomPosition);

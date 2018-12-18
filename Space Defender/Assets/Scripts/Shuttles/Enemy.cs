@@ -37,6 +37,13 @@ public class Enemy : SpaceShuttle {
 		}
 	}
 
+	override public void Explode(){
+
+		base.Explode();
+
+		GameManager.instance.EnemyDestroyed(points);		
+	}
+
 	override public void FixedUpdate()
 	{
 		base.FixedUpdate();

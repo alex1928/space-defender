@@ -43,8 +43,10 @@ public class ObstacleDestroy : MonoBehaviour {
 		if(partsCount <= 1)
 			return;
 
-		if(crushCounter >= crushLimit)
+		if(crushCounter >= crushLimit) {
+			Remove();
 			return;
+		}
 
 		crushCounter++;
 
@@ -54,12 +56,10 @@ public class ObstacleDestroy : MonoBehaviour {
 
 			GameObject newObstacle = EnviromentManager.instance.SpawnObstacle(transform.position, newScale);
 			Rigidbody2D newObstacleRB = newObstacle.GetComponent<Rigidbody2D>();
+			newObstacle.GetComponent<ObstacleDestroy>().crushCounter = crushCounter + 1;
 			newObstacleRB.AddForce(crushVelocity / 2f, ForceMode2D.Impulse);
 		}
-		
-		GameObject particle = Instantiate(crushParticlePrefab);
-		particle.transform.position = transform.position;
-		Destroy(particle, 1f);
+
 		Remove();
 	}
 
@@ -67,8 +67,12 @@ public class ObstacleDestroy : MonoBehaviour {
 	public void Remove() {
 
 		EnviromentManager.instance.spawnedObstacles.Remove(gameObject);
-		scaleAnimator.ScaleTo(Vector3.zero, 0.3f);
+		scaleAnimator.ScaleTo(Vector3.zero, 0.2f);
 
-		Destroy(gameObject, 1.1f);
+		GameObject particle = Instantiate(crushParticlePrefab);
+		particle.transform.position = transform.position;
+		Destroy(particle, 1f);
+
+		Destroy(gameObject, 0.2f);
 	}
 }

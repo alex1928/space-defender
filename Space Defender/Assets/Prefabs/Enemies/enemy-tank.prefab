@@ -394,7 +394,8 @@ MonoBehaviour:
   - {fileID: 1507378210682266}
   - {fileID: 1464667186272748}
   rocketLauncher: {fileID: 0}
-  health: 25
+  health: 15
+  points: 2
   target: {fileID: 0}
   followDistance: 5
   breakingDistance: 2

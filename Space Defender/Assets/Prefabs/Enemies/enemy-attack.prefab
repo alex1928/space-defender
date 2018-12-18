@@ -311,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 044b8e6d3636642598ab8f2a67b2cd4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadTime: 0.5
+  reloadTime: 0.3
   projectilePrefab: {fileID: 1560740047005784, guid: 981fcf30166ca476396c24558720c1c1,
     type: 2}
 --- !u!114 &114253265121518654
@@ -372,7 +372,8 @@ MonoBehaviour:
   - {fileID: 1516461167994490}
   - {fileID: 1836025765587338}
   rocketLauncher: {fileID: 0}
-  health: 15
+  health: 8
+  points: 1
   target: {fileID: 0}
   followDistance: 5
   breakingDistance: 2
@@ -389,7 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 044b8e6d3636642598ab8f2a67b2cd4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadTime: 0.5
+  reloadTime: 0.3
   projectilePrefab: {fileID: 1560740047005784, guid: 981fcf30166ca476396c24558720c1c1,
     type: 2}
 --- !u!114 &114601995076884418
