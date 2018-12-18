@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] private int maxEnemiesCount;
 
 	public List<GameObject> enemyPrefabs = new List<GameObject>();
+
+	public bool gameOver = false;
 
 
 
@@ -40,15 +43,36 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if(EnemyManager.instance.spawnedEnemies.Count < maxEnemiesCount) {
+		if(!gameOver && EnemyManager.instance.spawnedEnemies.Count < maxEnemiesCount) {
 
 			SpawnEnemies();
 		}	
 	}
 
 
-	public void SpawnEnemies() {
+	public void GameOver() {
 
+		if(gameOver)	
+			return;
+
+		gameOver = true;
+		UIManager.instance.ShowGameOver();
+	}
+
+
+	public void StartGame() {
+
+		SceneManager.LoadScene("Game");
+	}
+
+	public void ExitGame() {
+
+		Application.Quit();
+	}
+
+
+	public void SpawnEnemies() {
+		
 		GameObject randomPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
 		EnemyManager.instance.SpawnEnemy(randomPrefab);
 		maxEnemiesCount = startEnemiesCount + (int)Mathf.Floor((float)points * additionalEnemiesPerPoint);
@@ -57,7 +81,7 @@ public class GameManager : MonoBehaviour {
 	public void AddPoints(int points) {
 
 		this.points += points;
-		UIManager.instance.UpdatePoints(points);
+		UIManager.instance.UpdatePoints(this.points);
 	}
 
 }

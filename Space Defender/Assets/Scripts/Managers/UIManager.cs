@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour {
 	public Text healthText;
 	public Slider healthBar;
 
+	public GameObject gameOverPanel;
+
 
 	void Awake() {
 
@@ -28,6 +30,11 @@ public class UIManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	public void ShowGameOver() {
+
+		gameOverPanel.SetActive(true);
 	}
 
 	public void UpdatePlayerHealthBar(int currentHealth, int maxHealth) {

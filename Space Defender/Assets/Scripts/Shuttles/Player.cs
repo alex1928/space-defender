@@ -66,8 +66,13 @@ public class Player : SpaceShuttle {
 		if(currentHealth < 0)
 			currentHealth = 0;
 		
-		UIManager.instance.UpdatePlayerHealthBar(health, startHealth);
+		UIManager.instance.UpdatePlayerHealthBar(currentHealth, startHealth);
 
 		base.DealDamage(damage);
+
+		if(currentHealth <= 0) {
+			
+			GameManager.instance.GameOver();
+		}
 	}
 }
