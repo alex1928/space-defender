@@ -10,6 +10,8 @@ public class Projectile : MonoBehaviour {
 	private Rigidbody2D rb;
 	public float speed = 10f;
 	public int damage = 10;
+	
+	public GameObject hitDamageEffectPrefab;
 
 	[SerializeField] protected float lifeTime = 1f;
 
@@ -38,6 +40,13 @@ public class Projectile : MonoBehaviour {
 
 	public virtual void Remove() {
 
+		if(hitDamageEffectPrefab != null) {
+			GameObject effect = Instantiate(hitDamageEffectPrefab);
+			effect.transform.position = transform.position;
+
+			Destroy(effect, 1f);
+		}
+		
 		Destroy(gameObject);
 	}
 }

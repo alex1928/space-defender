@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1560740047005784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.167143, y: -0.8519366, z: 0}
+  m_LocalPosition: {x: 2.958356, y: -1.5580397, z: 0}
   m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
   m_Children: []
   m_Father: {fileID: 0}
@@ -91,6 +91,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 12
   damage: 1
+  hitDamageEffectPrefab: {fileID: 1698942176533856, guid: 90ecb2d9d2e64404dbc9e038c63923b1,
+    type: 2}
   lifeTime: 3
 --- !u!212 &212648423591451450
 SpriteRenderer:

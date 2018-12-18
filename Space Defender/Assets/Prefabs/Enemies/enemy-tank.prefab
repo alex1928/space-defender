@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114804747637354362}
   - component: {fileID: 114108789595450052}
   - component: {fileID: 114269658460952254}
+  - component: {fileID: 114716539223932424}
   m_Layer: 9
   m_Name: enemy-tank
   m_TagString: Enemy
@@ -351,6 +352,21 @@ MonoBehaviour:
   reloadTime: 0.5
   projectilePrefab: {fileID: 1280556029781138, guid: b88e77b242a3942949775ef0bbe542fa,
     type: 2}
+--- !u!114 &114716539223932424
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1148275205113544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 702cab60353c344df91527ed98056466, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetScale: {x: 0, y: 0, z: 0}
+  scalingTime: 0.3
+  scaleOnStart: 0
+  defaultScale: {x: 0, y: 0, z: 0}
 --- !u!114 &114804747637354362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -362,21 +378,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7566604d38413411799191d985feaa8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 100
-  agility: 20
-  maxSpeed: 4
+  acceleration: 50
+  agility: 15
+  maxSpeed: 3
   afterburderMultiplier: 1.4
   horizontalMovementStabilization: 30
-  weapons:
-  - {fileID: 1507378210682266}
-  - {fileID: 1464667186272748}
   engines:
   - {fileID: 198411976126640548}
   - {fileID: 198348897950159286}
+  explosionParticle: {fileID: 1443261983504714, guid: e0ac1c27088b44feca4b40cb51bb3564,
+    type: 2}
   maxEnginesSpeed: -0.5
   maxEnginesEmmision: 15
+  weapons:
+  - {fileID: 1507378210682266}
+  - {fileID: 1464667186272748}
   rocketLauncher: {fileID: 0}
-  health: 1000
+  health: 25
   target: {fileID: 0}
   followDistance: 5
   breakingDistance: 2

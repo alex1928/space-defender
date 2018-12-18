@@ -6,23 +6,27 @@ using UnityEngine;
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(FieldOfView))]
 [RequireComponent(typeof(SurroundingSensor))]
+[RequireComponent(typeof(ScaleObject))]
 
 public abstract class SpaceShuttle : MonoBehaviour {
 
 	protected Rigidbody2D rb;
 	protected bool afterburner = false;
 
+	[Header("Moving")]
 	[SerializeField] private float acceleration = 100f;
 	[SerializeField] protected float agility = 50f;
 	[SerializeField] private float maxSpeed = 30f;
 	[SerializeField] protected float afterburderMultiplier = 1.4f;
 	[SerializeField] private float horizontalMovementStabilization = 30f;
 
-	public List<GameObject> weapons = new List<GameObject>();
 	public List<ParticleSystem> engines = new List<ParticleSystem>();
+	public GameObject explosionParticle;
 	public float maxEnginesSpeed = -0.5f;
 	public int maxEnginesEmmision = 15;
 
+	[Header("Weapons")]
+	public List<GameObject> weapons = new List<GameObject>();
 	public GameObject rocketLauncher;
 
 	public int health = 100;
@@ -155,6 +159,10 @@ public abstract class SpaceShuttle : MonoBehaviour {
 
 	public void Explode() {
 
+		GameObject explosion = Instantiate(explosionParticle);
+		explosion.transform.position = transform.position;
+
+		Destroy(explosion, 2f);
 		Destroy(gameObject);
 	}
 

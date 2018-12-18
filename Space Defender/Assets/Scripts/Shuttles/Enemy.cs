@@ -61,7 +61,6 @@ public class Enemy : SpaceShuttle {
 			float accelerationForce = Mathf.Clamp(distance / followDistance, -1f, 1f);
 			accelerationForce = accelerationForce * Time.deltaTime;
 			AddAccelerationForce(accelerationForce, transform.up);
-			Debug.Log(accelerationForce);
 			SetEnginesEffectPower(1f);
 		}
 
