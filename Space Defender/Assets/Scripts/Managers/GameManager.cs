@@ -54,9 +54,10 @@ public class GameManager : MonoBehaviour {
 		maxEnemiesCount = startEnemiesCount + (int)Mathf.Floor((float)points * additionalEnemiesPerPoint);
 	}
 
-
-	public void EnemyDestroyed(int points) {
+	public void AddPoints(int points) {
 
 		this.points += points;
+		UIManager.instance.UpdatePoints(points);
 	}
+
 }

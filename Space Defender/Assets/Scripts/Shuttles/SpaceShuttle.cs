@@ -28,9 +28,9 @@ public abstract class SpaceShuttle : MonoBehaviour {
 	[Header("Weapons")]
 	public List<GameObject> weapons = new List<GameObject>();
 	public GameObject rocketLauncher;
-
+	
 	public int health = 100;
-	public int points = 1;
+	public int startHealth;
 
 
 	protected SurroundingSensor surroundingSensor;
@@ -42,6 +42,8 @@ public abstract class SpaceShuttle : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D>();
 		surroundingSensor = GetComponent<SurroundingSensor>();
 		fieldOfView = GetComponent<FieldOfView>();
+
+		startHealth = health;
 	}
 	
 	// Use this for initialization
@@ -147,7 +149,7 @@ public abstract class SpaceShuttle : MonoBehaviour {
 		return localVelocity.x;
 	}	
 
-	protected void DealDamage(int damage) {
+	protected virtual void DealDamage(int damage) {
 
 		health -= damage;
 

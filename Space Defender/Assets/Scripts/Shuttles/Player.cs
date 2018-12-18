@@ -17,6 +17,8 @@ public class Player : SpaceShuttle {
 		base.Start();
 
 		rb.angularDrag = angularDrag;
+
+		UIManager.instance.UpdatePlayerHealthBar(health, startHealth);
 	}
 	
 	// Update is called once per frame
@@ -56,5 +58,16 @@ public class Player : SpaceShuttle {
 			float directionAxis = Input.GetAxis("Horizontal") * Time.deltaTime;
 			AddDirectionForce(directionAxis);
 		}
+	}
+
+	override protected void DealDamage(int damage) {
+
+		int currentHealth = health - damage;
+		if(currentHealth < 0)
+			currentHealth = 0;
+		
+		UIManager.instance.UpdatePlayerHealthBar(health, startHealth);
+
+		base.DealDamage(damage);
 	}
 }
