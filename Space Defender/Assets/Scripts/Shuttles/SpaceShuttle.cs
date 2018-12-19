@@ -20,6 +20,7 @@ public abstract class SpaceShuttle : MonoBehaviour {
 	[SerializeField] protected float afterburderMultiplier = 1.4f;
 	[SerializeField] private float horizontalMovementStabilization = 30f;
 
+	[Header("Effects")]
 	public List<ParticleSystem> engines = new List<ParticleSystem>();
 	public GameObject explosionParticle;
 	public float maxEnginesSpeed = -0.5f;
@@ -30,7 +31,7 @@ public abstract class SpaceShuttle : MonoBehaviour {
 	public GameObject rocketLauncher;
 	
 	public int health = 100;
-	public int startHealth;
+	protected int startHealth;
 
 
 	protected SurroundingSensor surroundingSensor;
@@ -62,7 +63,7 @@ public abstract class SpaceShuttle : MonoBehaviour {
 		StabilizeHorizontalMovement();
 	}
 
-	protected void StartShooting() {
+	public void StartShooting() {
 
 		foreach(GameObject weapon in weapons) {
 
@@ -71,7 +72,7 @@ public abstract class SpaceShuttle : MonoBehaviour {
 		}
 	}
 
-	protected void StopShooting() {
+	public void StopShooting() {
 
 		foreach(GameObject weapon in weapons) {
 
@@ -80,7 +81,7 @@ public abstract class SpaceShuttle : MonoBehaviour {
 		}
 	}
 
-	protected void FireRocket() {
+	public void FireRocket() {
 
 		if(fieldOfView.visibleTargets.Count == 0)
 			return;

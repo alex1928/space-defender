@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour {
 	public Slider healthBar;
 
 	public GameObject gameOverPanel;
+	public GameObject mobileControls;
+	public FixedJoystick joystick;
 
 
 	void Awake() {
@@ -25,12 +27,9 @@ public class UIManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
+		SetupInterface();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 
 	public void ShowGameOver() {
 
@@ -46,5 +45,24 @@ public class UIManager : MonoBehaviour {
 	public void UpdatePoints(int points) {
 
 		pointsText.text = points.ToString();
+	}
+
+	public void SetupInterface() {
+
+		mobileControls.SetActive(SystemInfo.deviceType == DeviceType.Handheld);
+	}
+
+	public Vector2 GetControlAxis() {
+
+		if(SystemInfo.deviceType == DeviceType.Handheld) {
+
+			return new Vector2(joystick.Horizontal, joystick.Vertical);
+		}
+		else if(SystemInfo.deviceType == DeviceType.Desktop) {
+
+			return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+		}
+
+		return Vector2.zero;
 	}
 }
