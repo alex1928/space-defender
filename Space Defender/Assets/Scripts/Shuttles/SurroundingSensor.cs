@@ -10,7 +10,7 @@ public class SurroundingSensor : MonoBehaviour {
 	public float left = 0f;
 	public float right = 0f;
 
-	float checkInterval = .2f;
+	public float checkInterval = .2f;
 
 	[Range(0, 20)] public float sensorRadius = 2f;
 

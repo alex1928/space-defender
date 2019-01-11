@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour {
 		
 		GameObject randomPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
 		EnemyManager.instance.SpawnEnemy(randomPrefab);
+		
 		maxEnemiesCount = startEnemiesCount + (int)Mathf.Floor((float)points * additionalEnemiesPerPoint);
 	}
 

@@ -13,10 +13,8 @@ public class Player : SpaceShuttle {
 
 
 	// Use this for initialization
-	public override void Start () {
+	public void Start () {
 		
-		base.Start();
-
 		rb.angularDrag = angularDrag;
 
 		UIManager.instance.UpdatePlayerHealthBar(health, startHealth);
@@ -24,9 +22,7 @@ public class Player : SpaceShuttle {
 	}
 	
 	// Update is called once per frame
-	public override void Update() {
-
-		base.Update();
+	public void Update() {
 
 		if(SystemInfo.deviceType == DeviceType.Desktop) {
 

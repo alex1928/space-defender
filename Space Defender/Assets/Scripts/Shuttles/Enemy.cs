@@ -17,18 +17,8 @@ public class Enemy : SpaceShuttle {
 	public float minDistanceFromObjects = 3.5f;
 
 
-
-	// Use this for initialization
-	override public void Start () {
-		
-		base.Start();
-	}
-
-	
 	// Update is called once per frame
-	public override void Update() {
-
-		base.Update();
+	public void Update() {
 
 		if(fieldOfView.VisibleObjectsContains(target)) {
 			StartShooting();
@@ -71,16 +61,17 @@ public class Enemy : SpaceShuttle {
 			SetEnginesEffectPower(1f);
 		}
 
+		//checks if something is on right side of shuttle.
 		if(surroundingSensor.right != 0 && surroundingSensor.right < minDistanceFromObjects) 
 			AddAccelerationForce(-Time.deltaTime / 2f, transform.right);
 		
+		//checks if something is on left side of shuttle.
 		if(surroundingSensor.left != 0 && surroundingSensor.left < minDistanceFromObjects) 
 			AddAccelerationForce(Time.deltaTime / 2f, transform.right);
 		
+		//checks if something is in front of shuttle.
 		if(surroundingSensor.up != 0 && surroundingSensor.up < minDistanceFromObjects)
 			AddAccelerationForce(-Time.deltaTime / 2f, transform.right);
-		
-
 	}
 	
 }

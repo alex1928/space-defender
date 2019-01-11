@@ -28,6 +28,7 @@ public abstract class SpaceShuttle : MonoBehaviour {
 
 	[Header("Weapons")]
 	public List<GameObject> weapons = new List<GameObject>();
+	private List<Weapon> weaponObjects = new List<Weapon>();
 	public GameObject rocketLauncher;
 	
 	public int health = 100;
@@ -36,7 +37,6 @@ public abstract class SpaceShuttle : MonoBehaviour {
 
 	protected SurroundingSensor surroundingSensor;
 	protected FieldOfView fieldOfView;
-
 	
 	void Awake() {
 
@@ -45,16 +45,11 @@ public abstract class SpaceShuttle : MonoBehaviour {
 		fieldOfView = GetComponent<FieldOfView>();
 
 		startHealth = health;
-	}
-	
-	// Use this for initialization
-	public virtual void Start () {
-	}
 
+		foreach(GameObject weapon in weapons) {
 
-	public virtual void Update() {
-
-		
+			weaponObjects.Add(weapon.GetComponent<Weapon>());
+		}
 	}
 
 	 
@@ -65,19 +60,17 @@ public abstract class SpaceShuttle : MonoBehaviour {
 
 	public void StartShooting() {
 
-		foreach(GameObject weapon in weapons) {
+		foreach(Weapon weapon in weaponObjects) {
 
-			Weapon weaponObj = weapon.GetComponent<Weapon>();
-			weaponObj.StartShooting();
+			weapon.StartShooting();
 		}
 	}
 
 	public void StopShooting() {
 
-		foreach(GameObject weapon in weapons) {
+		foreach(Weapon weapon in weaponObjects) {
 
-			Weapon weaponObj = weapon.GetComponent<Weapon>();
-			weaponObj.StopShooting();
+			weapon.StopShooting();
 		}
 	}
 

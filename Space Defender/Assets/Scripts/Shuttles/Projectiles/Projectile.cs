@@ -41,6 +41,7 @@ public class Projectile : MonoBehaviour {
 	public virtual void Remove() {
 
 		if(hitDamageEffectPrefab != null) {
+			
 			GameObject effect = Instantiate(hitDamageEffectPrefab);
 			effect.transform.position = transform.position;
 

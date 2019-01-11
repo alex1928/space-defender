@@ -38,6 +38,9 @@ public class ObstacleDestroy : MonoBehaviour {
 		}
 	}
 
+	//Crusing into defined number of parts. Created parts also can be crushed if crush limit wasn't achieved. 
+	//When crush limit is achieved object is destroyed.
+
 	public void CrushIntoParts(int partsCount, Vector2 crushVelocity) {
 
 		if(partsCount <= 1)

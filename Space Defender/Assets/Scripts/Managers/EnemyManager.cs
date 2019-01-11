@@ -16,27 +16,33 @@ public class EnemyManager : MonoBehaviour {
 			Destroy(gameObject);
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
 
 	public void SpawnEnemy(GameObject enemyPrefab, int count = 1) {
 
 		for(int i = 0; i < count; i++) {
 
-			Vector2 position = EnviromentManager.instance.GetRandomPositionInAvaliableSpace();
-			GameObject newEnemy = Instantiate(enemyPrefab);
-
-			Enemy enemyObject = newEnemy.GetComponent<Enemy>();
-
-			newEnemy.transform.position = position;
-			enemyObject.target = GameManager.instance.player;
-
-			spawnedEnemies.Add(newEnemy);
+			SpawnEnemy(enemyPrefab);
 		}
 	}
 
 
-}
+	public void SpawnEnemy(GameObject enemyPrefab) {
+
+		GameObject newEnemy = InstantiateEnemyOnRandomPosition(enemyPrefab);
+		Enemy enemyObject = newEnemy.GetComponent<Enemy>();
+	
+		enemyObject.target = GameManager.instance.player;
+
+		spawnedEnemies.Add(newEnemy);
+	}
+
+
+	private GameObject InstantiateEnemyOnRandomPosition(GameObject enemyPrefab) {
+
+		Vector2 position = EnviromentManager.instance.GetRandomPositionInAvaliableSpace();
+		GameObject newEnemy = Instantiate(enemyPrefab);
+		newEnemy.transform.position = position;
+
+		return newEnemy;
+	}
+}	

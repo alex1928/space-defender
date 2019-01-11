@@ -9,11 +9,12 @@ public class FieldOfView : MonoBehaviour {
 	[Range(0,20)] public float viewRadius;
 	[Range(0,360)] public float viewAngle;
 	public LayerMask targetMask;
+	public float checkInteraval = .3f;
 
 	// Use this for initialization
 	void Start () {
 		
-		StartCoroutine("FindTargetsWithDelay", .3f);
+		StartCoroutine("FindTargetsWithDelay", checkInteraval);
 	}
 
 	IEnumerator FindTargetsWithDelay(float delay) {
@@ -36,6 +37,7 @@ public class FieldOfView : MonoBehaviour {
 
 			GameObject targetObject = targetCollider.gameObject;
 
+			//ignores our space shuttle in searching
 			if(targetObject == gameObject)
 				continue;
 			
@@ -46,6 +48,7 @@ public class FieldOfView : MonoBehaviour {
 		}
 	}
 
+	//checks if object is in visible range and if there is enything that can block the visibility.
 	private bool IsObjectVisible(GameObject targetObject) {
 
 		Vector2 directionToTarget = (targetObject.transform.position - transform.position).normalized;

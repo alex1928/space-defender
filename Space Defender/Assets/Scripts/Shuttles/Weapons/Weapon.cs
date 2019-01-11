@@ -38,6 +38,7 @@ public class Weapon : MonoBehaviour {
 		projectile.transform.position = transform.position;
 		projectile.transform.rotation = transform.rotation;
 
+		//if projectile is missile type, then sets its target.
 		Missile missile = projectile.GetComponent<Missile>();
 		if(missile != null) {
 

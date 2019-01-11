@@ -27,13 +27,12 @@ public class Missile : Projectile {
 		Vector2 positionDiff = target.transform.position - transform.position;
 		Quaternion newRotation = Quaternion.LookRotation(Vector3.forward, positionDiff);
 		transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, 2 * Time.deltaTime);
+
 		StartMove();
 	}
 
 	public override void Remove() {
-
-
-
+		
 		base.Remove();
 	}
 }

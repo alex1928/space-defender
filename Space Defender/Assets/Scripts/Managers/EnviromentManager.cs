@@ -43,7 +43,7 @@ public class EnviromentManager : MonoBehaviour {
 
 		SpawnObstacles();
 		RemoveObstacles();
-		RespawnObstaclesOutOfRange();
+		RespawnObstaclesOutOfCameraRange();
 	}
 
 
@@ -56,8 +56,8 @@ public class EnviromentManager : MonoBehaviour {
 		}
 	}
 
-
-	public void RespawnObstaclesOutOfRange() {
+	//Selects obstacles with are out of max range and respawns them.
+	public void RespawnObstaclesOutOfCameraRange() {
 
 		Vector2 cameraCenter = gameCamera.ViewportToWorldPoint(new Vector2(0.5f, 0.5f));
 
@@ -82,6 +82,7 @@ public class EnviromentManager : MonoBehaviour {
 		while(spawnedObstacles.Count > maxSpawnedObjects) {
 
 			bool removedAnything = false;
+
 			for(int i = 0; i < spawnedObstacles.Count; i++) {
 
 				GameObject obstacleToRemove = spawnedObstacles[i];
@@ -113,7 +114,6 @@ public class EnviromentManager : MonoBehaviour {
 		Vector3 defaultObstacleScale = obstacle.GetComponent<ScaleObject>().defaultScale;
 
 		obstacle.transform.localScale = defaultObstacleScale * randomScale;
-		
 	}
 
 
