@@ -192,5 +192,24 @@ public abstract class SpaceShuttle : MonoBehaviour {
 			
 		}
         
-    }
+  }
+
+	void OnCollisionEnter2D(Collision2D collider)
+	{	
+			GameObject other = collider.gameObject;
+
+			if(other.tag == "Obstacle") {
+
+					ObstacleDestroy od = other.GetComponent<ObstacleDestroy>();
+					od.CrushIntoParts(2, rb.velocity);
+					DealDamage(3);
+			}
+
+			if(other.tag == "Enemy") {
+
+					Enemy enemy = other.GetComponent<Enemy>();
+					enemy.DealDamage(1);
+					DealDamage(1);
+			}
+	}
 }

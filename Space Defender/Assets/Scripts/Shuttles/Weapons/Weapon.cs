@@ -11,6 +11,10 @@ public class Weapon : MonoBehaviour {
 	[SerializeField] private GameObject projectilePrefab; 
 	private GameObject target;
 
+	private List<GameObject> projectilesPool = new List<GameObject>();
+
+	public int projectilesPoolSize = 10;
+
 
 	// Use this for initialization
 	void Start () {
@@ -29,14 +33,47 @@ public class Weapon : MonoBehaviour {
 		}
 	}
 
+	private void PrepareProjectilesPool() {
+
+		for(int i = 0; i < projectilesPoolSize; i++) {
+
+			AddProjectileToPool();
+		}
+	}
+
+	private GameObject AddProjectileToPool() {
+
+		GameObject projectile = Instantiate(projectilePrefab);
+		projectile.SetActive(false);
+		projectilesPool.Add(projectile);
+
+		return projectile;
+	}
+
+	private GameObject GetUnusedProjectile() {
+
+		foreach(GameObject projectile in projectilesPool) {
+
+			if(!projectile.activeInHierarchy)
+				return projectile;
+		}
+		
+		return null;
+	}
+
 	public void OneShot() {
 
 		if(reloadTimer > 0)
 			return;
 
-		GameObject projectile = Instantiate(projectilePrefab);
+		GameObject projectile = GetUnusedProjectile();
+
+		if(projectile == null)
+			projectile = AddProjectileToPool();
+
 		projectile.transform.position = transform.position;
 		projectile.transform.rotation = transform.rotation;
+		projectile.SetActive(true);
 
 		//if projectile is missile type, then sets its target.
 		Missile missile = projectile.GetComponent<Missile>();

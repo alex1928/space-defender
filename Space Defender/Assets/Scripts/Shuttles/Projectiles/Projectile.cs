@@ -14,10 +14,12 @@ public class Projectile : MonoBehaviour {
 	public GameObject hitDamageEffectPrefab;
 
 	[SerializeField] protected float lifeTime = 1f;
+	private float lifeLeft = 0f;
 
 	// Use this for initialization
 	public virtual void Start () {
 		
+		lifeLeft = lifeTime;
 		rb = GetComponent<Rigidbody2D>(); 
 		StartMove();
 	}
@@ -25,17 +27,24 @@ public class Projectile : MonoBehaviour {
 	// Update is called once per frame
 	public virtual void Update () {
 		
-		lifeTime -= Time.deltaTime;
+		lifeLeft -= Time.deltaTime;
 
-		if(lifeTime <= 0) {
+		if(lifeLeft <= 0) {
 
 			Remove();
 		}
 	}
 
-	public virtual void StartMove() {
+	public void OnEnable() {
 
-		rb.velocity = transform.up * speed;
+		lifeLeft = lifeTime;
+		StartMove();
+	}
+
+	public void StartMove() {
+
+		if(rb != null)
+			rb.velocity = transform.up * speed;
 	}
 
 	public virtual void Remove() {
@@ -48,6 +57,7 @@ public class Projectile : MonoBehaviour {
 			Destroy(effect, 1f);
 		}
 
-		Destroy(gameObject);
+		rb.velocity = Vector3.zero;
+		gameObject.SetActive(false);
 	}
 }
